@@ -13,13 +13,17 @@
    
     <label>Title:</label><br/>
     <input type="text" name="title"/><br/>
-   
-    <label for="id-status">Status:</label><br/>
+
+    <label for="deadline">Deadline:</label><br/>
+    <input type="date" id="deadline" name="deadline"/><br/>
+
+    <label for="id-status">Statuses:</label><br/>
     <select name="status" id="id-status">
         {% for choice in status_choices %}
         <option value="{{choice.0}}"> {{ choice.1 }}</option>
         {% endfor %}
     </select><br/>
+
     <input type="submit" value="Create"/>
     <p><a href="/">На главную</a></p>
 </form>
