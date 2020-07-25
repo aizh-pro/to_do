@@ -1,7 +1,11 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Create task</title>
 </head>
 <body>
@@ -10,21 +14,23 @@
 
 <form action="/tasks/add/" method="post">
     {% csrf_token %}
-   
+   <div class="form-group row">
     <label>Title:</label><br/>
     <input type="text" name="title"/><br/>
-
+   </div>
+ <div class="form-group row">
     <label for="deadline">Deadline:</label><br/>
     <input type="date" id="deadline" name="deadline"/><br/>
-
+   </div>
+ <div class="form-group row">
     <label for="id-status">Statuses:</label><br/>
     <select name="status" id="id-status">
         {% for choice in status_choices %}
         <option value="{{choice.0}}"> {{ choice.1 }}</option>
         {% endfor %}
     </select><br/>
-
-    <input type="submit" value="Create"/>
+ </div>
+    <input type="submit" class="btn btn-secondary" value="Create"/>
     <p><a href="/">На главную</a></p>
 </form>
 
