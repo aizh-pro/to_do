@@ -13,12 +13,12 @@
 <div class="container">
     <h1>Tasks </h1>
     <p><a href="/tasks/add/">Добавить</a></p>
-{% for task in tasks %}
+    {% for task in tasks %}
     <h2>{{ task.title }}</h2>
     <p>Статус: {{ task.status }}|{{ task.get_status_display }}</p>
     <p><a href="/task/?pk={{ task.pk }}">Подробнее...</a></p>
     <hr>
-{% endfor %}
+    {% endfor %}
 </div>
 </body>
 </html>
