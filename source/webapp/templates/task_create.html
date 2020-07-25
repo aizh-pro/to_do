@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create task</title>
+</head>
+<body>
+
+<h1>Create Task</h1>
+
+<form action="/tasks/add/" method="post">
+    {% csrf_token %}
+   
+    <label>Title:</label><br/>
+    <input type="text" name="title"/><br/>
+   
+    <label for="id-status">Status:</label><br/>
+    <select name="status" id="id-status">
+        {% for choice in status_choices %}
+        <option value="{{choice.0}}"> {{ choice.1 }}</option>
+        {% endfor %}
+    </select><br/>
+    <input type="submit" value="Create"/>
+    <p><a href="/">На главную</a></p>
+</form>
+
+</body>
+</html>
