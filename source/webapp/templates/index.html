@@ -14,12 +14,12 @@
 <body>
 <div class="container">
     <h1>To Do List</h1>
-    <p><a href="/tasks/add/">Создать задачу</a></p>
+    <p><a href="{% url 'task_create' %}">Создать задачу</a></p>
     {% for task in tasks %}
-    <h2><a href="/task/?pk={{ task.pk }}">{{ task.pk }}.{{ task.title }}</a></h2>
+    <h2><a href="{% url 'task_view' task.pk %}">{{ task.pk }}.{{ task.title }}</a></h2>
     <p>Статус: {{ task.get_status_display }}</p>
     <p>Deadline:{{ task.deadline }} | Created at:{{ task.created_at }}</p>
-    <p><a href="/task/?pk={{ task.pk }}">Подробнее</a></p>
+    <p><a href="/task/{{ task.pk }}/">Подробнее</a></p>
     <hr>
     {% endfor %}
 </div>

@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from webapp.models import Task, STATUS_CHOICES
-
+from django.urls import reverse
 
 def index_view(request):
     data = Task.objects.all()
@@ -9,9 +9,8 @@ def index_view(request):
     })
 
 
-def task_view(request):
-    task_id = request.GET.get('pk')
-    task = Task.objects.get(pk=task_id)
+def task_view(request, pk):
+    task = get_object_or_404(Task,pk=pk)
     context = {'task': task}
     return render(request, 'task_view.html', context=context)
 
@@ -35,6 +34,7 @@ def task_create_view(request):
         context = {
             'task': task,
         }
-        return render(request, 'task_view.html', context)
+        return redirect('task_view', pk=task.pk)
+
 
 
