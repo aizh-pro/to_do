@@ -1,27 +1,20 @@
-{% load staticfiles %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main page</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-<div class="container">
-    <h1>To Do List</h1>
-    <p><a href="{% url 'task_create' %}">Создать задачу</a></p>
-    {% for task in tasks %}
-    <h2><a href="{% url 'task_view' task.pk %}">{{ task.pk }}.{{ task.title }}</a></h2>
-    <p>Статус: {{ task.get_status_display }}</p>
+{% extends 'base.html' %}
+
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+   <h1>Tasks:</h1>
+   <hr/>
+   {% for task in tasks %}
+        <h2><a href="{% url 'task_view' task.pk %}">{{ task.pk }}.{{ task.title }}</a></h2>
+        <p>Статус: {{ task.get_status_display }}</p>
     <p>Deadline:{{ task.deadline }} | Created at:{{ task.created_at }}</p>
-    <p><a href="/task/{{ task.pk }}/">Подробнее</a></p>
-    <hr>
-    {% endfor %}
-</div>
-</body>
-</html>
+    <p><a href="{% url 'task_view' task.pk %}">Подробнее</a></p>
+       <hr/>
+   {% endfor %}
+{% endblock %}
+
+
+
+

@@ -1,24 +1,19 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>View</title>
-</head>
-<body>
-<div class="card-body">
-    <h1><b>Created task</b></h1>
-    <h2 class="card-title">{{ task.title }}</h2>
+{% extends "base.html" %}
+
+{% block title %}Detailed page{% endblock %}
+
+{% block content %}
+    <h1>Detailed page</h1>
+    <p><b>Title:</b> {{ task.title }}</p>
+     <p><b>Task id:</b> {{ task.pk }}</p>
     <p><b>Status:</b> {{ task.status }}</p>
     <p><b>Deadline:</b>{{ task.deadline }}</p>
     <p><b>Description:</b>{{ task.description }}</p>
-     <p><b>Created at:</b>{{ task.created_at }}</p>
-    <p><b>Updated at:</b> at: {{ task.updated_at }}</p>
-    <p><a href="/">На главную</a></p>
-     </div>
-</body>
-</html>
+    <p><b>Created at:</b>{{ task.created_at }}</p>
+    <p><b>Updated at:</b> {{ task.updated_at }}</p>
+{% endblock %}
+
+
+
+
+
