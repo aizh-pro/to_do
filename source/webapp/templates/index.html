@@ -19,6 +19,7 @@
     <h2>{{ task.pk }}.{{ task.title }}</h2>
     <p>Статус: {{ task.get_status_display }}</p>
     <p>Deadline:{{ task.deadline }} | Created at:{{ task.created_at }}</p>
+    <p><a href="/task/?pk={{ task.pk }}">Подробнее</a></p>
     <hr>
     {% endfor %}
 </div>
