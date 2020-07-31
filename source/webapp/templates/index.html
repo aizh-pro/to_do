@@ -11,6 +11,7 @@
         <p>Статус: {{ task.get_status_display }}</p>
     <p>Deadline:{{ task.deadline }} | Created at:{{ task.created_at }}</p>
     <p><a href="{% url 'task_view' task.pk %}">Подробнее</a></p>
+    <p><a href="{% url 'task_update' task.pk %}">Update</a></p>
        <hr/>
    {% endfor %}
 {% endblock %}

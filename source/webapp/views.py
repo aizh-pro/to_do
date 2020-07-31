@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from webapp.models import Task, STATUS_CHOICES
-from django.urls import reverse
+from webapp.models import Task
+from django.http import HttpResponseNotAllowed
+from .forms import TaskForm, BROWSER_DATETIME_FORMAT
 
 def index_view(request):
     data = Task.objects.all()
@@ -17,24 +18,59 @@ def task_view(request, pk):
 
 def task_create_view(request):
     if request.method == 'GET':
-        return render(request, 'task_create.html', context={'status_choices': STATUS_CHOICES})
+        form = TaskForm()
+        return render(request, 'task_create.html', context={
+            'form': form})
     elif request.method == 'POST':
-        title = request.POST.get('title')
-        status = request.POST.get('status')
-        deadline = request.POST.get('deadline')
-        description = request.POST.get('description')
-        if deadline == '' and description == '':
-            task = Task.objects.create(title=title, deadline=None, status=status, description=None)
-        elif description == '':
-            task = Task.objects.create(title=title, deadline=deadline, status=status, description=None)
-        elif deadline == '':
-            task = Task.objects.create(title=title, deadline=None, status=status, description=description)
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            task = Task.objects.create(**form.cleaned_data)
+            return redirect('task_view', pk=task.pk)
         else:
-            task = Task.objects.create(title=title, deadline=deadline, status=status, description=description)
-        context = {
-            'task': task,
-        }
-        return redirect('task_view', pk=task.pk)
+            return render(request, 'task_create.html', context={
+                'form': form
+            })
+    else:
+        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
+    
+    
+def task_update_view(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "GET":
+        form = TaskForm(initial={
+            'title': task.title,
+            'description': task.description,
+            'deadline': task.deadline,
+            'status': task.status,
+        })
+        return render(request, 'task_update.html', context={
+            'form': form,
+            'task': task
+        })
+    elif request.method == 'POST':
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            task.title = form.cleaned_data['title']
+            task.description = form.cleaned_data['description']
+            task.deadline = form.cleaned_data['deadline']
+            task.status = form.cleaned_data['status']
+            task.save()
+            return redirect('task_view', pk=task.pk)
+        else:
+            return render(request, 'task_update.html', context={
+                'task': task,
+                'form': form
+            })
+    else:
+        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
 
 
-
+def task_delete_view(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == 'GET':
+        return render(request, 'task_delete.html', context={'task': task})
+    elif request.method == 'POST':
+        task.delete()
+        return redirect('index')
+    else:
+        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
