@@ -74,3 +74,9 @@ def task_delete_view(request, pk):
         return redirect('index')
     else:
         return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
+
+
+def delete_all(request,pk=None):
+    if request.method == 'POST':
+        pk_list = request.POST.getlist('instance')
+

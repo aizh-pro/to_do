@@ -5,15 +5,20 @@
 {% endblock %}
 {% block content %}
    <h1>Tasks:</h1>
+     <input type="submit" name="delete_all" value="Delete All" />
    <hr/>
+<form>
    {% for task in tasks %}
+        <input type="checkbox"  name="instance" value="{{task.id}}" >
         <h2><a href="{% url 'task_view' task.pk %}">{{ task.pk }}.{{ task.title }}</a></h2>
         <p>Статус: {{ task.get_status_display }}</p>
     <p>Deadline:{{ task.deadline }} | Created at:{{ task.created_at }}</p>
     <p><a href="{% url 'task_view' task.pk %}">Подробнее</a></p>
     <p><a href="{% url 'task_update' task.pk %}">Update</a></p>
+</form>
        <hr/>
    {% endfor %}
+    <input type="submit" name="delete_all" value="Delete All" />
 {% endblock %}
 
 

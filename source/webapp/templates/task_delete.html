@@ -9,7 +9,7 @@
     <form action="{% url "task_delete" task.pk %}" method="post">
         {% csrf_token %}
         <p><input type="submit" value="Да"></p>
-        <p><a href="{% url 'task_view' task.pk %}">Отмена</a></p>
+        <p><a href="{% url 'task_view' task.pk %}" value="Отмена"></a></p>
     </form>
     <h3>Полное описание задачи: </h3>
     <p>{{ task.description }}</p>
