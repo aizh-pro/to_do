@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView
+from django.urls import reverse
+from django.views.generic import TemplateView, FormView
 from django.views.generic.base import View
-
+from .base_view import FormView as CustomFormView
 from webapp.models import Task
-from django.http import HttpResponseNotAllowed
 from .forms import TaskForm
 
 
@@ -28,48 +28,62 @@ class TaskView(TemplateView):
         context['task'] = task
         return context
 
+class TaskCreateView(CustomFormView):
+    template_name = 'task_create.html'
+    form_class = TaskForm
 
-class TaskCreateView(View):
-    def get(self, request):
-        form = TaskForm()
-        return render(request, 'task_create.html', context={
-            'form': form
-        })
+    def form_valid(self, form):
+        data = {}
+        for key, value in form.cleaned_data.items():
+            if value is not None:
+                data[key] = value
+        self.task = Task.objects.create(**data)
+        return super().form_valid(form)
 
-    def post(self, request):
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            data = {}
-            for key, value in form.cleaned_data.items():
-                if value is not None:
-                    data[key] = value
-            task = Task.objects.create(**data)
-            return redirect('task_view', pk=task.pk)
-        else:
-            return render(request, 'task_create.html', context={
-                'form': form
-            })
+    def get_redirect_url(self):
+        return reverse('article_view', kwargs={'pk': self.task.pk})
 
+    def get_redirect_url(self):
+        return reverse('task_view', kwargs={'pk': self.task.pk})
 
-class TaskUpdateView(TemplateView):
+class TaskUpdateView(FormView):
     template_name = 'task_update.html'
+    form_class = TaskForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.task = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['task'] = self.task
+        return context
 
-        pk = self.kwargs.get('pk')
-        task = get_object_or_404(Task, pk=pk)
-
+    def get_initial(self):
         initial = {}
         for key in 'title', 'description', 'deadline', 'status', 'type':
-            initial[key] = getattr(task, key)
+            initial[key] = getattr(self.task, key)
+        return initial
 
-        form = TaskForm(initial=initial)
+    def form_valid(self, form):
+        for key, value in form.cleaned_data.items():
+            if value is not None:
+                setattr(self.task, key, value)
+        self.task.save()
+        return super().form_valid(form)
 
-        context['task'] = task
-        context['form'] = form
+    def get_success_url(self):
+        return reverse('article_view', kwargs={'pk': self.task.pk})
 
-        return context
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Task, pk=pk)
+
+
+
+
+
+
 
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
