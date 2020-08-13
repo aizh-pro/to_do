@@ -1,6 +1,8 @@
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import BaseValidator
+from django.utils.datetime_safe import datetime, date
 from django.utils.deconstruct import deconstructible
 from .models import STATUS_CHOICES, Status, Type, Task
 
@@ -60,3 +62,13 @@ class TaskForm(forms.ModelForm):
         if len(title) > 50:
             raise ValidationError('Title is too long!')
         return title
+
+    def clean_deadline(self):
+        deadline = self.cleaned_data['deadline']
+        if date.today() >= deadline:
+            raise ValidationError("The date cannot be in the past!")
+        return deadline
+
+
+
+
