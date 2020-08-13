@@ -20,7 +20,7 @@ class Task(models.Model):
     description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Подробное описание')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
-    type_old = models.ForeignKey('webapp.Type', related_name='task_type', on_delete=models.PROTECT, verbose_name='Тип')
+    type = models.ManyToManyField('webapp.Type', related_name='task_type', verbose_name='Тип', blank=False)
     status = models.ForeignKey('webapp.Status', related_name='task_status', on_delete=models.PROTECT, verbose_name='Статус')
 
     def __str__(self):
