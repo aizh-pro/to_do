@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
-from django.views.generic.base import View
-from .base_view import FormView as CustomFormView
+
 from webapp.models import Task
 from .forms import TaskForm
 
@@ -28,7 +27,7 @@ class TaskView(TemplateView):
         context['task'] = task
         return context
 
-class TaskCreateView(CustomFormView):
+class TaskCreateView(FormView):
     template_name = 'task_create.html'
     form_class = TaskForm
 
@@ -40,11 +39,10 @@ class TaskCreateView(CustomFormView):
         self.task = Task.objects.create(**data)
         return super().form_valid(form)
 
-    def get_redirect_url(self):
-        return reverse('article_view', kwargs={'pk': self.task.pk})
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('task_view', kwargs={'pk': self.task.pk})
+
 
 class TaskUpdateView(FormView):
     template_name = 'task_update.html'
@@ -73,17 +71,11 @@ class TaskUpdateView(FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('article_view', kwargs={'pk': self.task.pk})
+        return reverse('task_view', kwargs={'pk': self.task.pk})
 
     def get_object(self):
         pk = self.kwargs.get('pk')
         return get_object_or_404(Task, pk=pk)
-
-
-
-
-
-
 
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
