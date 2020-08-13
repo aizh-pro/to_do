@@ -33,12 +33,13 @@ class TaskCreateView(FormView):
 
     def form_valid(self, form):
         data = {}
+        type = form.cleaned_data.pop('type')
         for key, value in form.cleaned_data.items():
             if value is not None:
                 data[key] = value
         self.task = Task.objects.create(**data)
+        self.task.type.set(type)
         return super().form_valid(form)
-
 
     def get_success_url(self):
         return reverse('task_view', kwargs={'pk': self.task.pk})
@@ -61,13 +62,16 @@ class TaskUpdateView(FormView):
         initial = {}
         for key in 'title', 'description', 'deadline', 'status', 'type':
             initial[key] = getattr(self.task, key)
+        initial['type'] = self.task.type.all()
         return initial
 
     def form_valid(self, form):
+        type = form.cleaned_data.pop('type')
         for key, value in form.cleaned_data.items():
             if value is not None:
                 setattr(self.task, key, value)
         self.task.save()
+        self.task.type.set(type)
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -76,21 +80,6 @@ class TaskUpdateView(FormView):
     def get_object(self):
         pk = self.kwargs.get('pk')
         return get_object_or_404(Task, pk=pk)
-
-    def post(self, request, pk):
-        task = get_object_or_404(Task, pk=pk)
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            for key, value in form.cleaned_data.items():
-                if value is not None:
-                    setattr(task, key, value)
-            task.save()
-            return redirect('task_view', pk=task.pk)
-        else:
-            return self.render_to_response({
-                'article': task,
-                'form': form
-            })
 
 
 class TaskDeleteView(TemplateView):

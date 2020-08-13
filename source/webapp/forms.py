@@ -13,7 +13,7 @@ class TaskForm(forms.Form):
                            widget=forms.Textarea)
     status = forms.ModelChoiceField(queryset=Status.objects.all(), required=True, label='Статус',
                                initial=default_status)
-    type = forms.ModelChoiceField(queryset=Type.objects.all(),required=True, label='Тип',
+    type = forms.ModelMultipleChoiceField(queryset=Type.objects.all(),required=True, label='Тип',
                                     initial=default_status)
     deadline = forms.DateTimeField(required=False, label='Дедлайн',
                                      input_formats=['%Y-%m-%d', BROWSER_DATETIME_FORMAT,
