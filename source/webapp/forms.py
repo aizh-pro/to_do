@@ -22,6 +22,18 @@ class MinLengthValidator(BaseValidator):
         return len(value)
 
 
+@deconstructible
+class MaxLengthValidator(BaseValidator):
+    message = 'Value "%(value)s" has length of %(show_value)d! It should be max %(limit_value)d symbols long!'
+    code = 'too_long'
+
+    def compare(self, value, limit):
+        return value > limit
+
+    def clean(self, value):
+        return len(value)
+
+
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
@@ -42,3 +54,9 @@ class TaskForm(forms.ModelForm):
         if errors:
             raise ValidationError(errors)
         return cleaned_data
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if len(title) > 50:
+            raise ValidationError('Title is too long!')
+        return title

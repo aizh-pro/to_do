@@ -1,4 +1,4 @@
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 
 STATUS_CHOICES = [
@@ -18,7 +18,7 @@ TYPE_CHOICES = [
 class Task(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False, verbose_name='Описание', validators=[MinLengthValidator(10)])
     deadline = models.DateField(null=True, blank=True, verbose_name='Дедлайн')
-    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Подробное описание')
+    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Подробное описание',validators=[MaxLengthValidator(255)])
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     type = models.ManyToManyField('webapp.Type', related_name='task_type', verbose_name='Тип', blank=False)
