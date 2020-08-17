@@ -2,14 +2,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import BaseValidator
-from django.utils.datetime_safe import  date
+from django.utils.datetime_safe import date
 from django.utils.deconstruct import deconstructible
 from .models import STATUS_CHOICES, Task
 
 default_status = STATUS_CHOICES[0][0]
-
-
-BROWSER_DATETIME_FORMAT = '%Y-%m-%dT%H:%M'
 
 
 @deconstructible
