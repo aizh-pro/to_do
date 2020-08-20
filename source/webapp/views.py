@@ -1,18 +1,32 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import TemplateView, FormView
-
+from django.views.generic import TemplateView, FormView, ListView
+from .base_view import FormView as CustomFormView, ListView as CustomListView
 from webapp.models import Task
-from .forms import TaskForm
+from .forms import TaskForm, SimpleSearchForm
+from django.db.models import Q
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
     template_name = 'index.html'
+    context_object_name = 'tasks'
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tasks'] = Task.objects.all()
-        return context
+    def get_context_data(self,*, object_list=None, **kwargs):
+        form = SimpleSearchForm(data=self.request.GET)
+        kwargs['search_form'] = form
+        return super().get_context_data(object_list=object_list,**kwargs)
+
+    def get_queryset(self):
+        data = Task.objects.all()
+
+        form = SimpleSearchForm(data=self.request.GET)
+        if form.is_valid():
+            search = form.cleaned_data['search']
+            if search:
+                data = data.filter(Q(title__icontains=search) | Q(description__icontains=search))
+
+        return data.order_by('-created_at')
 
 
 class TaskView(TemplateView):
@@ -27,7 +41,7 @@ class TaskView(TemplateView):
         context['task'] = task
         return context
 
-class TaskCreateView(FormView):
+class TaskCreateView(CustomFormView):
     template_name = 'task_create.html'
     form_class = TaskForm
 
