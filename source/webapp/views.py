@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView, ListView, CreateView
 from .base_view import FormView as CustomFormView, ListView as CustomListView
 from webapp.models import Task
 from .forms import TaskForm, SimpleSearchForm
@@ -8,7 +8,7 @@ from django.db.models import Q
 
 
 class IndexView(ListView):
-    template_name = 'index.html'
+    template_name = 'task/index.html'
     context_object_name = 'tasks'
     paginate_by = 10
 
@@ -30,7 +30,7 @@ class IndexView(ListView):
 
 
 class TaskView(TemplateView):
-    template_name = 'task_view.html'
+    template_name = 'task/task_view.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,26 +41,17 @@ class TaskView(TemplateView):
         context['task'] = task
         return context
 
-class TaskCreateView(CustomFormView):
-    template_name = 'task_create.html'
+class TaskCreateView(CreateView):
+    template_name = 'task/task_create.html'
     form_class = TaskForm
-
-    def form_valid(self, form):
-        data = {}
-        type = form.cleaned_data.pop('type')
-        for key, value in form.cleaned_data.items():
-            if value is not None:
-                data[key] = value
-        self.task = Task.objects.create(**data)
-        self.task.type.set(type)
-        return super().form_valid(form)
+    model = Task
 
     def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.task.pk})
+        return reverse('task_view', kwargs={'pk': self.object.pk})
 
 
 class TaskUpdateView(FormView):
-    template_name = 'task_update.html'
+    template_name = 'task/task_update.html'
     form_class = TaskForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -97,7 +88,7 @@ class TaskUpdateView(FormView):
 
 
 class TaskDeleteView(TemplateView):
-    template_name = 'task_delete.html'
+    template_name = 'task/task_delete.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
