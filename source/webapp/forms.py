@@ -88,3 +88,9 @@ class ProjectForm(forms.ModelForm):
         if errors:
             raise ValidationError(errors)
         return cleaned_data
+
+
+class ProjectTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'description','deadline','status', 'type']

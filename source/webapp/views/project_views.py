@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -18,13 +19,41 @@ class ProjectListView(ListView):
         return data
 
 
+# class ProjectView(DetailView):
+#     template_name = 'project/project_view.html'
+#     model = Project
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         return context
+
+
 class ProjectView(DetailView):
     template_name = 'project/project_view.html'
     model = Project
+    paginate_tasks_by = 5
+    paginate_tasks_orphans = 0
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        tasks, page, is_paginated = self.paginate_tasks(self.object)
+        context['tasks'] = tasks
+        context['page_obj'] = page
+        context['is_paginated'] = is_paginated
+
         return context
+
+    def paginate_tasks(self, project):
+        tasks = project.tasks.all().order_by('-created_at')
+        if tasks.count() > 0:
+            paginator = Paginator(tasks, self.paginate_tasks_by, orphans=self.paginate_tasks_orphans)
+            page_number = self.request.GET.get('page', 1)
+            page = paginator.get_page(page_number)
+            is_paginated = paginator.num_pages > 1
+            return page.object_list, page, is_paginated
+        else:
+            return tasks, None, False
 
 
 class ProjectCreateView(CreateView):

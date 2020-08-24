@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView, ListView, CreateView,DetailView
-from webapp.forms import SimpleSearchForm, TaskForm
-from webapp.models import Task
+from webapp.forms import SimpleSearchForm, TaskForm, ProjectTaskForm
+from webapp.models import Task, Project
 from django.db.models import Q
 
 
@@ -36,6 +36,18 @@ class TaskView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
+
+class ProjectTaskCreateView(CreateView):
+    model = Task
+    template_name = 'task/task_create.html'
+    form_class = ProjectTaskForm
+
+    def form_valid(self, form):
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
+        task = form.save(commit=False)
+        task.project = project
+        task.save()
+        return redirect('project_view', pk=project.pk)
 
 class TaskCreateView(CreateView):
     template_name = 'task/task_create.html'

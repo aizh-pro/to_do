@@ -11,4 +11,22 @@
     <p><b>Description:</b>{{ project.description }}</p>
     <p><b>Start date:</b>{{ project.start_date }}</p>
     <p><b>End date:</b> {{ project.end_date }}</p>
+
+     <hr>
+        <h3>Tasks</h3>
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+        {% for task in tasks %}
+            <div class="box">
+                 <h4><a href="{% url 'task_view' task.pk %}">{{ task.pk }}.{{ task.title }}</a></h4>
+                <div class="pre">{{ task.description }}</div>
+            </div>
+        {% empty %}
+            <p>Нет задач</p>
+        {% endfor %}
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+      </div>
 {% endblock %}
