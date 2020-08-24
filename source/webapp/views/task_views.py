@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import TemplateView, FormView, ListView, CreateView
+from django.views.generic import TemplateView, FormView, ListView, CreateView,DetailView
 from webapp.forms import SimpleSearchForm, TaskForm
 from webapp.models import Task
 from django.db.models import Q
-from .base_views import FormView as CustomFormeVIew, DetailView as CustomDetailView
+
 
 class IndexView(ListView):
     template_name = 'task/index.html'
@@ -28,10 +28,9 @@ class IndexView(ListView):
         return data.order_by('-created_at')
 
 
-class TaskView(CustomDetailView):
+class TaskView(DetailView):
     template_name = 'task/task_view.html'
     model = Task
-    context_key = 'task'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import BaseValidator
 from django.utils.datetime_safe import date
 from django.utils.deconstruct import deconstructible
-from .models import STATUS_CHOICES, Task
+from .models import STATUS_CHOICES, Task, Project
 
 default_status = STATUS_CHOICES[0][0]
 
@@ -69,3 +69,22 @@ class TaskForm(forms.ModelForm):
 
 class SimpleSearchForm(forms.Form):
     search = forms.CharField(max_length=100, required=False, label="Найти")
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description','start_date', 'end_date']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        errors = []
+        description = cleaned_data.get('description')
+        name = cleaned_data.get('name')
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if description and name and description == name:
+            errors.append(ValidationError("Text  should not duplicate it's name!"))
+        if errors:
+            raise ValidationError(errors)
+        return cleaned_data

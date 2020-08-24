@@ -1,5 +1,5 @@
 from django.contrib import admin
-from webapp.models import Task, Type, Status
+from webapp.models import Task, Type, Status, Project
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -13,4 +13,5 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Task)
 admin.site.register(Type)
 admin.site.register(Status)
+admin.site.register(Project)
 
