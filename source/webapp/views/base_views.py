@@ -1,17 +1,15 @@
 from django.views.generic import View, TemplateView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 class FormView(View):
     form_class = None
     template_name = None
     redirect_url = ''
-
     def get(self, request, *args, **kwargs):
         form = self.form_class()
         context = self.get_context_data(form=form)
         return render(request, self.template_name, context=context)
-
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST)
         if form.is_valid():
@@ -32,6 +30,7 @@ class FormView(View):
     def get_context_data(self, **kwargs):
         return kwargs
 
+
 class ListView(TemplateView):
     model = None
     context_key = 'objects'
@@ -43,3 +42,17 @@ class ListView(TemplateView):
 
     def get_queryset(self):
         return self.model.objects.all()
+    
+class DetailView(TemplateView):
+    context_key = 'object'
+    model = None
+    key_kwarg = 'pk'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[self.context_key] = self.get_object()
+        return context
+
+    def get_object(self):
+        pk = self.kwargs.get(self.key_kwarg)
+        return get_object_or_404(self.model, pk=pk)
