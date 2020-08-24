@@ -1,9 +1,8 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView, ListView, CreateView
-from .base_view import FormView as CustomFormView, ListView as CustomListView
+from webapp.forms import SimpleSearchForm, TaskForm
 from webapp.models import Task
-from .forms import TaskForm, SimpleSearchForm
 from django.db.models import Q
 
 
