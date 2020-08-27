@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import ProjectForm
 from webapp.models import Project
@@ -18,14 +18,6 @@ class ProjectListView(ListView):
         data = Project.objects.all()
         return data
 
-
-# class ProjectView(DetailView):
-#     template_name = 'project/project_view.html'
-#     model = Project
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return context
 
 
 class ProjectView(DetailView):
@@ -63,3 +55,19 @@ class ProjectCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
+class ProjectUpdateView(UpdateView):
+    template_name = 'project/project_update.html'
+    form_class = ProjectForm
+    model = Project
+
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+class ProjectDeleteView(DeleteView):
+    template_name = 'project/project_delete.html'
+    model = Project
+    context_object_name = 'project'
+    success_url = reverse_lazy('project_list')
