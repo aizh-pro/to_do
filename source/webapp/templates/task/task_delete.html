@@ -4,7 +4,7 @@
     <li><a href="{% url 'task_view' task.pk %}">Отмена</a></li>
 {% endblock %}
 {% block content %}
-    <h1>Вы уверены, что хотите удалить задачу "{{ task.title }}"?</h1>
+    <h3>Вы уверены, что хотите удалить задачу "{{ task.title }}"?</h3>
     <p>By: {{ task.deadline }} | {{ task.created_at }}</p>
     <form action="{% url "task_delete" task.pk %}" method="post">
         {% csrf_token %}
