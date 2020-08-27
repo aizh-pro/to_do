@@ -37,15 +37,6 @@ class TaskView(DetailView):
         return context
 
 
-# class TaskCreateView(CreateView):
-#     template_name = 'task/task_create.html'
-#     form_class = TaskForm
-#     model = Task
-#
-#     def get_success_url(self):
-#         return reverse('task_view', kwargs={'pk': self.object.pk})
-
-
 class ProjectTaskCreateView(CreateView):
     model = Task
     template_name = 'task/task_create.html'

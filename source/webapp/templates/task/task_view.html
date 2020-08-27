@@ -9,9 +9,9 @@
     <p><b>Title:</b> {{ task.title }}</p>
      <p><b>Task id:</b> {{ task.pk }}</p>
     <p><b>Status:</b> {{ task.status }}</p>
-    <p><b>Deadline:</b>{{ task.deadline }}</p>
-    <p><b>Description:</b>{{ task.description }}</p>
-    <p><b>Created at:</b>{{ task.created_at }}</p>
+    <p><b>Deadline:</b> {{ task.deadline }}</p>
+    <p><b>Description:</b> {{ task.description }}</p>
+    <p><b>Created at:</b> {{ task.created_at }}</p>
     <p><b>Updated at:</b> {{ task.updated_at }}</p>
     <p><b>Type:</b> {% for type in task.type.all %}{{ type.name}}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 {% endblock %}
