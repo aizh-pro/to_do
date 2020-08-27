@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}View{% endblock %}
 {% block menu %}
-    <li><a href="{% url 'project_create' %}">Project Create</a></li>
+
      <li><a href="{% url 'task_create' project.pk %}">Create Task</a></li>
 {% endblock %}
 {% block content %}

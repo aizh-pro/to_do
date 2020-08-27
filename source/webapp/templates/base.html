@@ -16,8 +16,9 @@
 <nav class="navbar">
     <div class="container">
         <ul class="menu">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'project_list' %}">Project List</a></li>
+            <li><a href="{% url 'project_list' %}">Home</a></li>
+            <li><a href="{% url 'index' %}">Task List</a></li>
+            <li><a href="{% url 'project_create' %}">Project Create</a></li>
             {% block menu %}{% endblock %}
         </ul>
         {% block search %}
