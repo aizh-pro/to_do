@@ -1,0 +1,310 @@
+[
+{
+  "model": "webapp.project",
+  "pk": 1,
+  "fields": {
+    "name": "Project 1",
+    "description": "Project 1 description something something\r\nhjkhjkjkh",
+    "start_date": "2020-08-25",
+    "end_date": "2021-02-28"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 2,
+  "fields": {
+    "name": "Project 2",
+    "description": "Description test test  test test",
+    "start_date": "2020-08-24",
+    "end_date": null
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 3,
+  "fields": {
+    "name": "Burger project",
+    "description": "Burger project - description something something something",
+    "start_date": "2020-08-01",
+    "end_date": null
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 4,
+  "fields": {
+    "name": "Cars project",
+    "description": "Description text car project",
+    "start_date": "2020-08-25",
+    "end_date": "2021-02-28"
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 1,
+  "fields": {
+    "title": "Task name 1",
+    "deadline": "2020-08-27",
+    "description": "Text text ddddsss",
+    "created_at": "2020-08-07T08:53:03.371Z",
+    "updated_at": "2020-08-07T10:07:48.496Z",
+    "status": 2,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 2,
+  "fields": {
+    "title": "Task name 2",
+    "deadline": "2020-08-28",
+    "description": "Text text",
+    "created_at": "2020-08-07T08:53:21.410Z",
+    "updated_at": "2020-08-07T08:53:21.410Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 3,
+  "fields": {
+    "title": "Bug 1",
+    "deadline": "2020-08-28",
+    "description": "Bug bug",
+    "created_at": "2020-08-07T08:53:43.963Z",
+    "updated_at": "2020-08-07T08:53:43.963Z",
+    "status": 2,
+    "project": 1,
+    "type": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 4,
+  "fields": {
+    "title": "Bug 2",
+    "deadline": "2020-08-29",
+    "description": "Bug bug",
+    "created_at": "2020-08-07T08:54:01.245Z",
+    "updated_at": "2020-08-07T08:54:01.245Z",
+    "status": 3,
+    "project": 1,
+    "type": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 5,
+  "fields": {
+    "title": "Task 3",
+    "deadline": "2020-08-31",
+    "description": "sdjlkjsdkljkl",
+    "created_at": "2020-08-07T08:54:18.149Z",
+    "updated_at": "2020-08-07T08:54:18.149Z",
+    "status": 2,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 6,
+  "fields": {
+    "title": "Task name 4",
+    "deadline": "2020-08-29",
+    "description": "dsssd",
+    "created_at": "2020-08-07T08:54:33.475Z",
+    "updated_at": "2020-08-07T08:54:33.475Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 8,
+  "fields": {
+    "title": "Task name8",
+    "deadline": "2020-08-04",
+    "description": "jkjkjk55555",
+    "created_at": "2020-08-12T18:25:56.368Z",
+    "updated_at": "2020-08-12T18:49:37.185Z",
+    "status": 3,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 14,
+  "fields": {
+    "title": "Title to check",
+    "deadline": null,
+    "description": "jkhjkjkhjkjkhnj",
+    "created_at": "2020-08-13T08:09:44.897Z",
+    "updated_at": "2020-08-13T08:09:44.897Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 16,
+  "fields": {
+    "title": "New task to check",
+    "deadline": "2020-10-31",
+    "description": "Text text test test test test test s tesgsdgjhdjssd\r\njkndcjknsdjknfjksdjkfsjkdf\r\njsdhjksdhkfsdjfhjksdhf;\r\nshfjksdhfjkhsdjkhksjdfh\r\nhdjksdjkksdjkfsd;fhksp\r\nkhsdkc;ssdjkhjsdhfksd\r\nsjcklscklsjklcjsdljcklsjlcjlskjckljskljclsjklcjskljcklsj",
+    "created_at": "2020-08-13T11:20:24.698Z",
+    "updated_at": "2020-08-23T16:26:32.850Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 18,
+  "fields": {
+    "title": "Task name",
+    "deadline": null,
+    "description": "xcfddddddddd",
+    "created_at": "2020-08-13T11:49:20.252Z",
+    "updated_at": "2020-08-13T11:49:20.252Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 23,
+  "fields": {
+    "title": "Task name2",
+    "deadline": "2020-08-29",
+    "description": "dfdsfdsf",
+    "created_at": "2020-08-23T16:30:30.816Z",
+    "updated_at": "2020-08-23T16:30:30.816Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 24,
+  "fields": {
+    "title": "Task name2",
+    "deadline": "2020-08-29",
+    "description": "dfdsfdsf",
+    "created_at": "2020-08-23T16:31:48.865Z",
+    "updated_at": "2020-08-23T16:31:48.865Z",
+    "status": 1,
+    "project": 1,
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 25,
+  "fields": {
+    "title": "Task name23",
+    "deadline": "2020-08-27",
+    "description": "Twe ghgasdjasdasdasdsdx",
+    "created_at": "2020-08-23T16:33:26.085Z",
+    "updated_at": "2020-08-23T18:05:42.218Z",
+    "status": 2,
+    "project": 1,
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "name": "Task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "name": "Bug"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "name": "Enhancement"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "name": "Todo"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "name": "In progress"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "name": "Done"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$4sOoMdH1O5Dx$3qaSYpr3WL6px856ZwHBIhafDEzXlTh8Di5gmOFn5I4=",
+    "last_login": "2020-08-24T02:40:43.475Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-08-07T08:41:19.860Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
