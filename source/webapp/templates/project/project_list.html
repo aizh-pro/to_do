@@ -6,8 +6,8 @@
    {% include 'partial/pagination.html' %}
     {% endif %}
    {% for project in projects %}
-        <h2><a href="{% url 'project_view' project.pk %}">{{ project.pk }}.{{ project.name }}</a></h2>
-    <p><a href="{% url 'project_view' project.pk %}">Подробнее</a></p>
+        <h2><a href="{% url 'webapp:project_view' project.pk %}">{{ project.pk }}.{{ project.name }}</a></h2>
+    <p><a href="{% url 'webapp:project_view' project.pk %}">Подробнее</a></p>
    {% endfor %}
       {% if is_paginated %}
    {% include 'partial/pagination.html' %}

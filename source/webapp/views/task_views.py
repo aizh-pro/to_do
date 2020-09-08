@@ -48,7 +48,7 @@ class ProjectTaskCreateView(LoginRequiredMixin,CreateView):
         task = form.save(commit=False)
         task.project = project
         task.save()
-        return redirect('project_view', pk=project.pk)
+        return redirect('webapp:project_view', pk=project.pk)
 
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
@@ -57,7 +57,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProjectTaskForm
 
     def get_success_url(self):
-        return reverse('project_view', kwargs={'pk': self.object.project.pk})
+        return reverse('webapp:project_view', kwargs={'pk': self.object.project.pk})
 
 # class TaskUpdateView(FormView):
 #     template_name = 'task/task_update.html'
@@ -120,7 +120,7 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
         return self.delete(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('project_view', kwargs={'pk': self.object.project.pk})
+        return reverse('webapp:project_view', kwargs={'pk': self.object.project.pk})
 
 
 

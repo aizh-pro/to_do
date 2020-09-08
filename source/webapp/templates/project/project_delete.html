@@ -3,16 +3,16 @@
 {% block title %}Delete{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'project_view' project.pk %}">Отмена</a></li>
+    <li><a href="{% url 'webapp:project_view' project.pk %}">Отмена</a></li>
 {% endblock %}
 
 {% block content %}
     <h3>Вы уверены, что хотите удалить проект "{{ project.name }}"?</h3>
     <p>Start Date {{ project.start_date }} | End Date {{ project.end_date }}</p>
-    <form action="{% url "project_delete" project.pk %}" method="post">
+    <form action="{% url "webapp:project_delete" project.pk %}" method="post">
         {% csrf_token %}
         <p><input class="btn btn-danger" type="submit" value="Удалить"></p>
-        <a href="{% url 'project_view' project.pk  %}" class="btn btn-primary" role="button" aria-pressed="true">Отмена</a>
+        <a href="{% url 'webapp:project_view' project.pk  %}" class="btn btn-primary" role="button" aria-pressed="true">Отмена</a>
     </form>
     <h3>Описание проекта: </h3>
     <p>{{ project.description }}</p>
