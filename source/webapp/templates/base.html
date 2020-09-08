@@ -14,7 +14,6 @@
 </head>
 <body>
 <nav class="navbar">
-    <div class="container">
         <ul class="menu">
             <li><a href="{% url 'webapp:project_list' %}">Home</a></li>
             <li><a href="{% url 'webapp:index' %}">Task List</a></li>
@@ -24,7 +23,7 @@
                         <li><a href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a></li>
-
+                        <li class="menu-right"><a href="{% url 'accounts:create' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
                     {% endif %}
             <li><a href="{% url 'webapp:project_create' %}"></a></li>
             {% block menu %}{% endblock %}
@@ -37,7 +36,6 @@
 {#                </form>#}
 {#            </div>#}
         {% endblock %}
-    </div>
 </nav>
 <div class="container">
     {% block content %}{% endblock %}
