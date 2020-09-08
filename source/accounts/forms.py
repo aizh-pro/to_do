@@ -12,7 +12,7 @@ class MyUserCreationForm(UserCreationForm):
         errors = []
         first_name = cleaned_data.get('first_name')
         last_name = cleaned_data.get('last_name')
-        if not first_name or not last_name:
+        if not (first_name or last_name):
             errors.append(ValidationError("Required field"))
         if errors:
             raise ValidationError(errors)
