@@ -65,4 +65,3 @@ class Status(models.Model):
         verbose_name_plural = "Статусы"
 
 
-
