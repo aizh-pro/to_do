@@ -17,7 +17,9 @@
         <ul class="menu">
             <li><a href="{% url 'webapp:project_list' %}">Home</a></li>
             <li><a href="{% url 'webapp:index' %}">Task List</a></li>
+        {% if perms.webapp.add_project or request.user in project.user.all%}
             <li><a href="{% url 'webapp:project_create' %}">Project Create</a></li>
+        {% endif %}
             {% if request.user.is_authenticated %}
                         <li><a href="#">Привет, {{ request.user.get_full_name|default:request.user.username }}</a></li>
                         <li><a href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a></li>
@@ -25,7 +27,9 @@
                         <li><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a></li>
                         <li class="menu-right"><a href="{% url 'accounts:create' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
                     {% endif %}
+        {% if perms.webapp.add_project or request.user in project.user.all%}
             <li><a href="{% url 'webapp:project_create' %}"></a></li>
+        {% endif %}
             {% block menu %}{% endblock %}
         </ul>
         {% block search %}

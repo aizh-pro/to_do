@@ -12,9 +12,15 @@
     <p><b>Start date:</b>{{ project.start_date }}</p>
     <p><b>End date:</b> {{ project.end_date }}</p>
 
+    {% if perms.webapp.change_project and request.user in project.user.all %}
     <p><a href="{% url 'webapp:project_update' project.pk %}"  class="btn btn-warning">Update</a></p>
+    {% endif %}
+    {% if perms.webapp.add_user and request.user in project.user.all %}
      <p><a href="{% url 'webapp:project_user' project.pk %}"  class="btn btn-warning">Add/Remove User</a></p>
+      {% endif %}
+    {% if perms.webapp.delete_project and request.user in project.user.all%}
     <p><a href="{% url 'webapp:project_delete' project.pk %}" class="btn btn-danger">Delete</a></p>
+    {% endif %}
      <hr>
         <h3>Tasks</h3>
         {% if is_paginated %}

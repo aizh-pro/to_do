@@ -20,7 +20,9 @@
         <p>Статус: {{ task.get_status_display }}</p>
     <p>Deadline:{{ task.deadline }} | Created at:{{ task.created_at }}</p>
     <p><a href="{% url 'webapp:task_view' task.pk %}">Подробнее</a></p>
+        {% if perms.webapp.change_task and request.user in project.user.all%}
     <p><a href="{% url 'webapp:task_update' task.pk %}">Update</a></p>
+        {% endif %}
    {% endfor %}
       {% if is_paginated %}
    {% include 'partial/pagination.html' %}
