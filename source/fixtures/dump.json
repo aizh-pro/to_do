@@ -6,7 +6,11 @@
     "name": "Project 1",
     "description": "Project 1 description something something\r\nhjkhjkjkh",
     "start_date": "2020-08-25",
-    "end_date": "2021-02-28"
+    "end_date": "2021-02-28",
+    "user": [
+      1,
+      4
+    ]
   }
 },
 {
@@ -16,7 +20,10 @@
     "name": "Project 2",
     "description": "Description test test  test test",
     "start_date": "2020-08-24",
-    "end_date": null
+    "end_date": null,
+    "user": [
+      6
+    ]
   }
 },
 {
@@ -26,7 +33,10 @@
     "name": "Burger project",
     "description": "Burger project - description something something something",
     "start_date": "2020-08-01",
-    "end_date": null
+    "end_date": null,
+    "user": [
+      5
+    ]
   }
 },
 {
@@ -36,7 +46,19 @@
     "name": "Cars project",
     "description": "Description text car project",
     "start_date": "2020-08-25",
-    "end_date": "2021-02-28"
+    "end_date": "2021-02-28",
+    "user": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 9,
+  "fields": {
+    "name": "Testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+    "description": "bn vcb",
+    "start_date": "2020-08-24",
+    "end_date": "2021-05-05",
+    "user": []
   }
 },
 {
@@ -248,6 +270,54 @@
   }
 },
 {
+  "model": "webapp.task",
+  "pk": 27,
+  "fields": {
+    "title": "Title to check task creation",
+    "deadline": "2020-08-29",
+    "description": "HJjjkhbdgjkbjkdgjkbklgjklbjgkl\r\nj;gkjfdklgjkldfjklgdj\r\njkljflvjbmgff",
+    "created_at": "2020-08-27T12:10:39.754Z",
+    "updated_at": "2020-09-10T11:02:05.325Z",
+    "status": 1,
+    "project": 3,
+    "type": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 28,
+  "fields": {
+    "title": "Task of second project",
+    "deadline": "2020-08-28",
+    "description": "Deslgjbkljcgklbjklgjkljn cjdkjfkldlfj",
+    "created_at": "2020-08-27T12:30:40.340Z",
+    "updated_at": "2020-09-10T11:04:25.527Z",
+    "status": 1,
+    "project": 2,
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 29,
+  "fields": {
+    "title": "Task of second project  number2",
+    "deadline": "2020-08-27",
+    "description": "fgidfgdfgdfgdfgdfgfgdfgdfgfdg5345635",
+    "created_at": "2020-08-27T12:31:19.767Z",
+    "updated_at": "2020-09-10T10:58:50.498Z",
+    "status": 2,
+    "project": 2,
+    "type": [
+      1
+    ]
+  }
+},
+{
   "model": "webapp.type",
   "pk": 1,
   "fields": {
@@ -287,24 +357,6 @@
   "pk": 3,
   "fields": {
     "name": "Done"
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$150000$4sOoMdH1O5Dx$3qaSYpr3WL6px856ZwHBIhafDEzXlTh8Di5gmOFn5I4=",
-    "last_login": "2020-08-24T02:40:43.475Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2020-08-07T08:41:19.860Z",
-    "groups": [],
-    "user_permissions": []
   }
 }
 ]
