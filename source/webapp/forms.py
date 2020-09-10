@@ -94,3 +94,9 @@ class ProjectTaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title', 'description','deadline','status', 'type']
+
+
+class ProjectUserForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['user']

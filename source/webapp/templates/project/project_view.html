@@ -13,6 +13,7 @@
     <p><b>End date:</b> {{ project.end_date }}</p>
 
     <p><a href="{% url 'webapp:project_update' project.pk %}"  class="btn btn-warning">Update</a></p>
+     <p><a href="{% url 'webapp:project_user' project.pk %}"  class="btn btn-warning">Add/Remove User</a></p>
     <p><a href="{% url 'webapp:project_delete' project.pk %}" class="btn btn-danger">Delete</a></p>
      <hr>
         <h3>Tasks</h3>

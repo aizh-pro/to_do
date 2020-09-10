@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 
@@ -14,11 +15,14 @@ TYPE_CHOICES = [
     ('Enhancement ', 'улучшение')
 ]
 
+
 class Project(models.Model):
     name = models.CharField(max_length=200, null=False, blank=False, verbose_name='Название')
-    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Описание', validators=[MaxLengthValidator(255)])
+    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Описание',
+                                   validators=[MaxLengthValidator(255)])
     start_date = models.DateField(null=False, blank=False, verbose_name='Дата начала')
     end_date = models.DateField(null=True, blank=True, verbose_name='Дата окончания')
+    user = models.ManyToManyField(get_user_model(), default=1, related_name='projects', verbose_name='user')
 
     class Meta:
         verbose_name = 'Проект'
@@ -26,13 +30,16 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    title = models.CharField(max_length=200, null=False, blank=False, verbose_name='Описание', validators=[MinLengthValidator(10)])
+    title = models.CharField(max_length=200, null=False, blank=False, verbose_name='Описание',
+                             validators=[MinLengthValidator(10)])
     deadline = models.DateField(null=True, blank=True, verbose_name='Дедлайн')
-    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Подробное описание',validators=[MaxLengthValidator(255)])
+    description = models.TextField(max_length=255, null=True, blank=True, verbose_name='Подробное описание',
+                                   validators=[MaxLengthValidator(255)])
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     type = models.ManyToManyField('webapp.Type', related_name='task_type', verbose_name='Тип', blank=False)
-    status = models.ForeignKey('webapp.Status', related_name='task_status', on_delete=models.PROTECT, verbose_name='Статус')
+    status = models.ForeignKey('webapp.Status', related_name='task_status', on_delete=models.PROTECT,
+                               verbose_name='Статус')
     project = models.ForeignKey('webapp.Project', related_name='tasks', on_delete=models.CASCADE, verbose_name='Проект')
 
     def __str__(self):
@@ -63,5 +70,3 @@ class Status(models.Model):
     class Meta:
         verbose_name = "Статус"
         verbose_name_plural = "Статусы"
-
-
