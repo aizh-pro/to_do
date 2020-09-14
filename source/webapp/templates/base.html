@@ -30,6 +30,9 @@
         {% if perms.webapp.add_project or request.user in project.user.all%}
             <li><a href="{% url 'webapp:project_create' %}"></a></li>
         {% endif %}
+{#          {% if perms.webapp.view_user_list or request.user in project.user.all%}#}
+            <li><a href="{% url 'accounts:user_list' %}">User list</a></li>
+{#        {% endif %}#}
             {% block menu %}{% endblock %}
         </ul>
         {% block search %}
