@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
+
+
 class MyUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta(UserCreationForm.Meta):
@@ -18,3 +20,5 @@ class MyUserCreationForm(UserCreationForm):
         if errors:
             raise ValidationError(errors)
         return cleaned_data
+
+
