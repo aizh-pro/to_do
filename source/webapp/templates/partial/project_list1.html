@@ -2,9 +2,9 @@
     {% include 'partial/pagination.html' %}
 {% endif %}
 
-{% for user in users %}
+{% for project in projects %}
     <div class="box">
-        <h3><a href="{% url 'accounts:detail' request.user.pk %}">{{ user.name }}</a></h3>
+        <h3><a href="{% url 'webapp:project_view' project.pk %}">{{ project.name }}</a></h3>
 
         <p>Дата начала и окончания проекта: ({{ project.start_date }} | {{ project.end_date }})</p>
 
