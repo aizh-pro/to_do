@@ -1,0 +1,16 @@
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}
+
+{% for project in projects %}
+    <div class="box">
+        <h3><a href="{% url 'project_view' project.pk %}">{{ project.name }}</a></h3>
+
+        <p>Дата начала и окончания проекта: ({{ project.start_date }} | {{ project.end_date }})</p>
+
+        <p>Description: {{ 'webapp: project.description' }}</p>
+
+    </div>
+ {% empty %}
+ <h2 class="text-center">Нет проекта</h2>
+ {% endfor %}

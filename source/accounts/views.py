@@ -1,6 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import MyUserCreationForm
+from django.views.generic import DetailView
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 def login_view(request):
     context = {}
@@ -31,3 +35,9 @@ def register_view(request, *args, **kwargs):
     else:
         form = MyUserCreationForm()
     return render(request, 'user_create.html', context={'form': form})
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = 'user_detail.html'
+    context_object_name = 'user_obj'
