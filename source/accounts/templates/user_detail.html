@@ -20,5 +20,5 @@
     <p>Ссылка: {{ user_obj.profile.profile }}</p>
 
     <h2 class="text-center clear">Список проектов, в которых участвует пользователь:</h2>
-    {% include 'partial/project_list1.html' with projects=user_obj.projects %}
+    {% include 'partial/project_list1.html' with projects=user_obj.projects.all %}
 {% endblock %}

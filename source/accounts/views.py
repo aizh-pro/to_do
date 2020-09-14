@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import MyUserCreationForm
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -41,3 +42,16 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
+
+
+class UserListView(ListView):
+    template_name = 'user_list.html'
+    context_object_name = 'users'
+    paginate_by = 5
+
+    def get_context_data(self,*, object_list=None, **kwargs):
+        return super().get_context_data(object_list=object_list,**kwargs)
+
+    def get_queryset(self):
+        data = User.objects.all()
+        return data
