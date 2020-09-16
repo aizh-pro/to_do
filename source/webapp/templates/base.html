@@ -34,7 +34,10 @@
             <li><a href="{% url 'accounts:user_list' %}">User list</a></li>
         {% endif %}
             {% block menu %}{% endblock %}
+
+        {% block menu_links %} {% endblock %}
         </ul>
+
         {% block search %}
 {#            <div class="search-form">#}
 {#                <form action="{% url 'index' %}" method="GET">#}
