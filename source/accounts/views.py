@@ -7,7 +7,7 @@ from django.urls import reverse
 from .forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
 from django.views.generic import DetailView, ListView, UpdateView
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 
 def login_view(request):
@@ -60,7 +60,7 @@ class UserListView(PermissionRequiredMixin,ListView):
         data = User.objects.all()
         return data
 
-class UserChangeView(UpdateView):
+class UserChangeView(UserPassesTestMixin, UpdateView):
     model = get_user_model()
     form_class = UserChangeForm
     template_name = 'user_change.html'
@@ -101,7 +101,10 @@ class UserChangeView(UpdateView):
         return ProfileChangeForm(**form_kwargs)
 
 
-class UserPasswordChangeView(UpdateView):
+    def test_func(self):
+        return self.get_object().pk == self.request.user.pk
+
+class UserPasswordChangeView(UserPassesTestMixin, UpdateView):
     model = get_user_model()
     template_name = 'user_password_change.html'
     form_class = PasswordChangeForm
@@ -109,3 +112,6 @@ class UserPasswordChangeView(UpdateView):
 
     def get_success_url(self):
         return reverse('accounts:login')
+
+    def test_func(self):
+        return self.get_object().pk == self.request.user.pk
