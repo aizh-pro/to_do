@@ -9,6 +9,8 @@ from django.views.generic import DetailView, ListView, UpdateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
+from .models import Profile
+
 
 def login_view(request):
     context = {}
@@ -34,6 +36,7 @@ def register_view(request, *args, **kwargs):
         form = MyUserCreationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
+            Profile.objects.create(user=user).save()
             login(request, user)
             return redirect('webapp:index')
     else:
